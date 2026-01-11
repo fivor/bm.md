@@ -20,6 +20,9 @@ interface PreviewState {
   codeTheme: string
   setCodeTheme: (theme: string) => void
 
+  customCss: string
+  setCustomCss: (css: string) => void
+
   renderedHtmlMap: Partial<Record<Platform, string>>
   setRenderedHtml: (platform: Platform, html: string) => void
   getRenderedHtml: (platform: Platform) => string
@@ -41,6 +44,9 @@ export const usePreviewStore = create<PreviewState>()(
       codeTheme: 'kimbie-light',
       setCodeTheme: codeTheme => set({ codeTheme, renderedHtmlMap: {} }),
 
+      customCss: '',
+      setCustomCss: customCss => set({ customCss, renderedHtmlMap: {} }),
+
       renderedHtmlMap: {},
       setRenderedHtml: (platform, html) => set(state => ({
         renderedHtmlMap: { ...state.renderedHtmlMap, [platform]: html },
@@ -54,6 +60,7 @@ export const usePreviewStore = create<PreviewState>()(
         userPreferredWidth: state.userPreferredWidth,
         markdownStyle: state.markdownStyle,
         codeTheme: state.codeTheme,
+        customCss: state.customCss,
       }),
     },
   ),

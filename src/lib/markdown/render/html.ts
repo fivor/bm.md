@@ -23,6 +23,7 @@ export interface RenderOptions {
   markdown: string
   markdownStyle?: string
   codeTheme?: string
+  customCss?: string
   enableFootnoteLinks?: boolean
   openLinksInNewWindow?: boolean
   platform?: Platform
@@ -109,6 +110,7 @@ export default async function render(options: RenderOptions): Promise<string> {
     markdown,
     markdownStyle,
     codeTheme,
+    customCss = '',
     enableFootnoteLinks = true,
     openLinksInNewWindow = true,
     platform = 'html',
@@ -121,7 +123,7 @@ export default async function render(options: RenderOptions): Promise<string> {
     || html.includes('class="katex-display"')
     || html.includes('class="katex-mathml"')
 
-  if (!markdownStyle && !codeTheme && !hasKatex) {
+  if (!markdownStyle && !codeTheme && !hasKatex && !customCss) {
     return html
   }
 
@@ -131,6 +133,7 @@ export default async function render(options: RenderOptions): Promise<string> {
     markdownStyleCss,
     codeThemeCss,
     hasKatex ? katexCss : '',
+    customCss,
   ].filter(Boolean).join('\n')
 
   const wrapped = `<section id="bm-md">${html}</section>`

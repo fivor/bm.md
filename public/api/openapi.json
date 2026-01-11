@@ -36,6 +36,12 @@
                     "default": "kimbie-light",
                     "description": "代码块高亮主题 ID。可选值: tokyo-night-light, tokyo-night-dark, panda-syntax-light, panda-syntax-dark, rose-pine-dawn, rose-pine, kimbie-light, kimbie-dark, paraiso-light, paraiso-dark"
                   },
+                  "customCss": {
+                    "type": "string",
+                    "maxLength": 50000,
+                    "default": "",
+                    "description": "自定义 CSS 样式，在主题样式之后应用。选择器需约束在 #bm-md 下，例如：#bm-md h1 { color: red; }"
+                  },
                   "enableFootnoteLinks": {
                     "type": "boolean",
                     "default": true,

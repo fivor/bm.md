@@ -14,6 +14,7 @@ export const renderDefinition = {
     markdown: z.string().max(MAX_INPUT_SIZE, INPUT_SIZE_ERROR).describe('要渲染的 Markdown 源文本，支持 GFM（GitHub Flavored Markdown）语法、数学公式（$..$ 或 $$..$$）'),
     markdownStyle: z.string().optional().default('ayu-light').describe('Markdown 排版样式 ID。可选值: ayu-light'),
     codeTheme: z.string().optional().default('kimbie-light').describe('代码块高亮主题 ID。可选值: tokyo-night-light, tokyo-night-dark, panda-syntax-light, panda-syntax-dark, rose-pine-dawn, rose-pine, kimbie-light, kimbie-dark, paraiso-light, paraiso-dark'),
+    customCss: z.string().max(50000, '自定义 CSS 不能超过 50000 字符').optional().default('').describe('自定义 CSS 样式，在主题样式之后应用。选择器需约束在 #bm-md 下，例如：#bm-md h1 { color: red; }'),
     enableFootnoteLinks: z.boolean().optional().default(true).describe('是否将文中链接自动转换为脚注形式，便于阅读时查看原始链接'),
     openLinksInNewWindow: z.boolean().optional().default(true).describe('是否为所有外部链接添加 target="_blank"，在新窗口打开'),
     platform: platformSchema.optional().default('html').describe('目标发布平台，会针对平台特性进行适配优化。可选值: html（通用网页）, wechat（微信公众号）, zhihu（知乎专栏）, juejin（掘金）'),

@@ -116,6 +116,36 @@ bm.md 是一个专业的 Markdown 排版工具，专为内容创作者设计。�
 - 基于 next-themes 实现
 - View Transition API 实现平滑切换动画
 
+### 自定义 CSS
+
+在主题样式基础上进行二次定制：
+
+- 点击预览区工具栏的画笔图标打开配置
+- CSS 选择器需约束在 `#bm-md` 下
+- 自定义样式在主题样式之后应用，可覆盖默认样式
+- 支持通过 API/MCP 传入 `customCss` 参数
+- 配置自动保存到本地存储
+
+示例：
+
+```css
+/* 修改标题颜色 */
+#bm-md h1 {
+  color: #e74c3c;
+}
+
+/* 调整段落行高 */
+#bm-md p {
+  line-height: 1.8;
+}
+
+/* 自定义引用块样式 */
+#bm-md blockquote {
+  border-left-color: #9b59b6;
+  background: #f8f4fc;
+}
+```
+
 ---
 
 ## 多平台导出

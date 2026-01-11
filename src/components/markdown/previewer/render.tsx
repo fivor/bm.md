@@ -19,6 +19,7 @@ export default function MarkdownRender() {
   const previewWidth = usePreviewStore(state => state.previewWidth)
   const markdownStyle = usePreviewStore(state => state.markdownStyle)
   const codeTheme = usePreviewStore(state => state.codeTheme)
+  const customCss = usePreviewStore(state => state.customCss)
   const renderedHtml = usePreviewStore(state => state.getRenderedHtml('html'))
   const setRenderedHtml = usePreviewStore(state => state.setRenderedHtml)
   const clearRenderedHtmlCache = usePreviewStore(state => state.clearRenderedHtmlCache)
@@ -123,6 +124,7 @@ export default function MarkdownRender() {
       nextContent: string,
       styleId: string,
       themeId: string,
+      customCssValue: string,
       enableRefLinks: boolean,
       openNewWin: boolean,
     ) => {
@@ -132,6 +134,7 @@ export default function MarkdownRender() {
           markdown: nextContent,
           markdownStyle: styleId,
           codeTheme: themeId,
+          customCss: customCssValue,
           enableFootnoteLinks: enableRefLinks,
           openLinksInNewWindow: openNewWin,
         })
@@ -153,13 +156,13 @@ export default function MarkdownRender() {
   useEffect(() => {
     clearRenderedHtmlCache()
     canceledRef.current = false
-    scheduleRender(content, markdownStyle, codeTheme, enableFootnoteLinks, openLinksInNewWindow)
+    scheduleRender(content, markdownStyle, codeTheme, customCss, enableFootnoteLinks, openLinksInNewWindow)
 
     return () => {
       canceledRef.current = true
       scheduleRender.cancel()
     }
-  }, [content, markdownStyle, codeTheme, enableFootnoteLinks, openLinksInNewWindow, scheduleRender, clearRenderedHtmlCache])
+  }, [content, markdownStyle, codeTheme, customCss, enableFootnoteLinks, openLinksInNewWindow, scheduleRender, clearRenderedHtmlCache])
 
   const isMobile = previewWidth === PREVIEW_WIDTH_MOBILE
 
