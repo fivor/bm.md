@@ -10,7 +10,7 @@ import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import viteTsConfigPaths from 'vite-tsconfig-paths'
 import { name } from './package.json'
-import { cssRawMinifyPlugin, htmlRawMinifyPlugin, markdownPlugin } from './scripts/vite'
+import { cssRawMinifyPlugin, fixNitroInlineDynamicImports, htmlRawMinifyPlugin, markdownPlugin } from './scripts/vite'
 import { appConfig } from './src/config/app'
 
 const require = createRequire(import.meta.url)
@@ -34,6 +34,7 @@ const config = defineConfig({
     host: process.env.DOCKERIZED ? true : undefined,
   },
   plugins: [
+    fixNitroInlineDynamicImports(),
     // analyzer(),
     cssRawMinifyPlugin(),
     htmlRawMinifyPlugin(),
@@ -65,7 +66,7 @@ const config = defineConfig({
     tailwindcss(),
     tanstackStart({
       prerender: {
-        enabled: !isTencentEdgeOne,
+        enabled: isAliyunESA,
         filter: ({ path }) =>
           path === '/'
           || path === '/about'
@@ -80,6 +81,7 @@ const config = defineConfig({
     VitePWA({
       strategies: 'injectManifest',
       srcDir: 'src',
+      outDir: isAliyunESA ? 'dist/client' : '.output/public',
       filename: 'sw.ts',
       registerType: 'autoUpdate',
       manifest: {
