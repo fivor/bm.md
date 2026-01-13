@@ -13,11 +13,11 @@ export default <NitroPreset>{
   commands: {
     // preview: 'esa-cli dev',
   },
+  wasm: { lazy: true },
   rollupConfig: {
     output: {
       format: 'module',
       entryFileNames: 'server.js',
-      inlineDynamicImports: false,
     },
   },
 }
